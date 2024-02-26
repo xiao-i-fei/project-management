@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofei.management.api.mapper.ApiInterfaceInfoMapper">
+    
+    <resultMap type="ApiInterfaceInfo" id="ApiInterfaceInfoResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="url"    column="url"    />
+        <result property="requestParams"    column="request_params"    />
+        <result property="requestHeader"    column="request_header"    />
+        <result property="responseHeader"    column="response_header"    />
+        <result property="status"    column="status"    />
+        <result property="method"    column="method"    />
+        <result property="userId"    column="user_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="isDelete"    column="is_delete"    />
+    </resultMap>
+
+    <sql id="selectApiInterfaceInfoVo">
+        select id, name, description, url, request_params, request_header, response_header, status, method, user_id, create_time, update_time, is_delete from api_interface_info
+    </sql>
+
+    <select id="selectApiInterfaceInfoList" parameterType="ApiInterfaceInfo" resultMap="ApiInterfaceInfoResult">
+        <include refid="selectApiInterfaceInfoVo"/>
+        WHERE user_id = #{userId}
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="url != null  and url != ''"> and url = #{url}</if>
+            <if test="requestParams != null  and requestParams != ''"> and request_params = #{requestParams}</if>
+            <if test="requestHeader != null  and requestHeader != ''"> and request_header = #{requestHeader}</if>
+            <if test="responseHeader != null  and responseHeader != ''"> and response_header = #{responseHeader}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="method != null  and method != ''"> and method = #{method}</if>
+        </where>
+    </select>
+    
+    <select id="selectApiInterfaceInfoById" parameterType="Long" resultMap="ApiInterfaceInfoResult">
+        <include refid="selectApiInterfaceInfoVo"/>
+        where id = #{id}
+        AND user_id = #{userId}
+    </select>
+        
+    <insert id="insertApiInterfaceInfo" parameterType="ApiInterfaceInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into api_interface_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="description != null">description,</if>
+            <if test="url != null and url != ''">url,</if>
+            <if test="requestParams != null and requestParams != ''">request_params,</if>
+            <if test="requestHeader != null">request_header,</if>
+            <if test="responseHeader != null">response_header,</if>
+            <if test="status != null">status,</if>
+            <if test="method != null and method != ''">method,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="url != null and url != ''">#{url},</if>
+            <if test="requestParams != null and requestParams != ''">#{requestParams},</if>
+            <if test="requestHeader != null">#{requestHeader},</if>
+            <if test="responseHeader != null">#{responseHeader},</if>
+            <if test="status != null">#{status},</if>
+            <if test="method != null and method != ''">#{method},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+         </trim>
+    </insert>
+
+    <update id="updateApiInterfaceInfo" parameterType="ApiInterfaceInfo">
+        update api_interface_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="requestParams != null and requestParams != ''">request_params = #{requestParams},</if>
+            <if test="requestHeader != null">request_header = #{requestHeader},</if>
+            <if test="responseHeader != null">response_header = #{responseHeader},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="method != null and method != ''">method = #{method},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where id = #{id}
+        AND user_id = #{userId}
+    </update>
+
+    <delete id="deleteApiInterfaceInfoById" parameterType="Long">
+        delete
+        from api_interface_info
+        where id = #{id}
+          AND user_id = #{userId}
+    </delete>
+
+    <delete id="deleteApiInterfaceInfoByIds" parameterType="String">
+        delete from api_interface_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND user_id = #{userId}
+    </delete>
+</mapper>
