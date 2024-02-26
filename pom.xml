@@ -171,6 +171,13 @@
                 <version>${project-management.version}</version>
             </dependency>
 
+            <!-- api开放平台-->
+            <dependency>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>project-management-api</artifactId>
+                <version>${project-management.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
@@ -187,6 +194,7 @@
         <module>project-management-quartz</module>
         <module>project-management-generator</module>
         <module>project-management-common</module>
+        <module>project-management-api</module>
     </modules>
     <packaging>pom</packaging>
 
