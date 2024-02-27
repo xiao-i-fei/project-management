@@ -31,6 +31,7 @@
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
         <jasypt.version>3.0.5</jasypt.version>
+        <hutool.version>5.8.16</hutool.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -184,6 +185,12 @@
                 <version>${jasypt.version}</version>
             </dependency>
 
+            <!--hutool工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
