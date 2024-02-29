@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofei.management.api.mapper.ApiUserInterfaceInfoMapper">
+
+    <resultMap type="ApiUserInterfaceInfo" id="ApiUserInterfaceInfoResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="interfaceInfoId" column="interface_info_id"/>
+        <result property="totalNum" column="total_num"/>
+        <result property="leftNum" column="left_num"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <sql id="selectApiUserInterfaceInfoVo">
+        select id,
+               user_id,
+               interface_info_id,
+               total_num,
+               left_num,
+               status,
+               create_time,
+               update_time,
+               is_delete
+        from api_user_interface_info
+    </sql>
+
+    <select id="selectApiUserInterfaceInfoList" parameterType="ApiUserInterfaceInfo"
+            resultMap="ApiUserInterfaceInfoResult">
+        <include refid="selectApiUserInterfaceInfoVo"/>
+        <where>
+            <if test="interfaceInfoId != null ">and interface_info_id = #{interfaceInfoId}</if>
+            <if test="totalNum != null ">and total_num = #{totalNum}</if>
+            <if test="leftNum != null ">and left_num = #{leftNum}</if>
+        </where>
+    </select>
+
+    <select id="selectApiUserInterfaceInfoById" parameterType="Long" resultMap="ApiUserInterfaceInfoResult">
+        <include refid="selectApiUserInterfaceInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertApiUserInterfaceInfo" parameterType="ApiUserInterfaceInfo" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into api_user_interface_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="interfaceInfoId != null">interface_info_id,</if>
+            <if test="totalNum != null">total_num,</if>
+            <if test="leftNum != null">left_num,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="interfaceInfoId != null">#{interfaceInfoId},</if>
+            <if test="totalNum != null">#{totalNum},</if>
+            <if test="leftNum != null">#{leftNum},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+        </trim>
+    </insert>
+
+    <update id="updateApiUserInterfaceInfo" parameterType="ApiUserInterfaceInfo">
+        update api_user_interface_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="interfaceInfoId != null">interface_info_id = #{interfaceInfoId},</if>
+            <if test="totalNum != null">total_num = #{totalNum},</if>
+            <if test="leftNum != null">left_num = #{leftNum},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteApiUserInterfaceInfoById" parameterType="Long">
+        delete
+        from api_user_interface_info
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteApiUserInterfaceInfoByIds" parameterType="String">
+        delete from api_user_interface_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
