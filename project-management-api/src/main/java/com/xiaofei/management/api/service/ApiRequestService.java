@@ -14,7 +14,12 @@ import com.xiaofei.management.api.dto.ApiInterfaceRequestDTO;
 public interface ApiRequestService {
 
     /**
-     * 根据条件查询用户信息
+     * 前端测试调用
      */
-    String listUserBySearch(ApiInterfaceRequestDTO apiInterfaceRequestDTO);
+    String testRequest(ApiInterfaceRequestDTO apiInterfaceRequestDTO);
+
+    /**
+     * 国家地区查询【根据传递的参数进行分页查询】
+     */
+    String regionListByPage(String accessKey, String encryptData);
 }

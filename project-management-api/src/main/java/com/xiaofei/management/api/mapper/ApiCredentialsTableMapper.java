@@ -60,4 +60,12 @@ public interface ApiCredentialsTableMapper {
      * @return 结果
      */
     public int deleteApiCredentialsTableByIds(@Param("ids") Long[] ids, @Param("userId") Long userId);
+
+    /**
+     * 查询凭据信息
+     *
+     * @param accessKey 凭据信息accessKey
+     * @return 凭据信息，存储访问密钥和密钥信息
+     */
+    ApiCredentialsTable selectApiCredentialsTableByAccessKey(@Param("accessKey") String accessKey);
 }

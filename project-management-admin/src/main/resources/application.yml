@@ -4,3 +4,4 @@ spring:
   profiles:
     # 激活配置文件【dev :本地开发  prod 服务器部署】
     active: local,pub
+gatewayUrl: ENC(2m4PKV37w8/k7naLT56iNvgFdfYPzhgcKNQumt35w0D5/L27/ztbswbaNNCqgMLBGEU9Rxwcg8pHadQS3cm/kg==)

@@ -1,6 +1,7 @@
 package com.xiaofei.management.api.mapper;
 
 import com.xiaofei.management.api.domain.ApiUserInterfaceInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -58,4 +59,14 @@ public interface ApiUserInterfaceInfoMapper {
      * @return 结果
      */
     public int deleteApiUserInterfaceInfoByIds(Long[] ids);
+
+    /**
+     * 根据用户id和接口id查询接口用户关联关系
+     */
+    ApiUserInterfaceInfo selectByUserIdAndInterfaceId(@Param("userId") Long userId, @Param("interfaceId") Long interfaceId);
+
+    /**
+     * 接口被删除时，删除接口与用户关联关系
+     */
+    int deleteByInterfaceId(Long[] interfaceIds);
 }

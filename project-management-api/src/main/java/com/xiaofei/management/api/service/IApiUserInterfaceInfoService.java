@@ -58,4 +58,14 @@ public interface IApiUserInterfaceInfoService {
      * @return 结果
      */
     public int deleteApiUserInterfaceInfoById(Long id);
+
+    /**
+     * 用户订阅接口，新增用户接口关联关系
+     */
+    boolean subscriptionInterfaceId(Long interfaceId);
+
+    /**
+     * 接口被删除时，删除接口与用户关联关系
+     */
+    int deleteByInterfaceId(Long[] interfaceIds);
 }

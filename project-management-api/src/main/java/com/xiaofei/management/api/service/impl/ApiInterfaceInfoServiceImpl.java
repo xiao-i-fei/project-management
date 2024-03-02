@@ -1,19 +1,16 @@
 package com.xiaofei.management.api.service.impl;
 
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.http.HttpUtil;
-import com.alibaba.fastjson2.JSON;
 import com.xiaofei.management.api.domain.ApiInterfaceInfo;
-import com.xiaofei.management.api.dto.ApiInterfaceRequestDTO;
 import com.xiaofei.management.api.mapper.ApiInterfaceInfoMapper;
 import com.xiaofei.management.api.service.IApiInterfaceInfoService;
+import com.xiaofei.management.api.service.IApiUserInterfaceInfoService;
 import com.xiaofei.management.common.utils.DateUtils;
 import com.xiaofei.management.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 接口信息Service业务层处理
@@ -22,9 +19,13 @@ import java.util.Map;
  * @date 2024-02-26
  */
 @Service
+@Transactional
 public class ApiInterfaceInfoServiceImpl implements IApiInterfaceInfoService {
     @Autowired
     private ApiInterfaceInfoMapper apiInterfaceInfoMapper;
+
+    @Autowired
+    private IApiUserInterfaceInfoService apiUserInterfaceInfoService;
 
     /**
      * 查询接口信息
@@ -95,7 +96,11 @@ public class ApiInterfaceInfoServiceImpl implements IApiInterfaceInfoService {
         // 获取当前用户ID
         Long userId = SecurityUtils.getUserId();
 
-        return apiInterfaceInfoMapper.deleteApiInterfaceInfoByIds(ids, userId);
+        int i = apiInterfaceInfoMapper.deleteApiInterfaceInfoByIds(ids, userId);
+        if (i > 0) {
+            apiUserInterfaceInfoService.deleteByInterfaceId(ids);
+        }
+        return i;
     }
 
     /**
@@ -109,6 +114,12 @@ public class ApiInterfaceInfoServiceImpl implements IApiInterfaceInfoService {
         // 获取当前用户ID
         Long userId = SecurityUtils.getUserId();
 
-        return apiInterfaceInfoMapper.deleteApiInterfaceInfoById(id, userId);
+        int i = apiInterfaceInfoMapper.deleteApiInterfaceInfoById(id, userId);
+
+        if (i > 0) {
+            apiUserInterfaceInfoService.deleteByInterfaceId(new Long[]{id});
+        }
+
+        return i;
     }
 }

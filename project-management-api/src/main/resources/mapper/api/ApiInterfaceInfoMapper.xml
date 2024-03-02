@@ -63,7 +63,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">name,</if>
             <if test="description != null">description,</if>
-            <if test="url != null and">url,</if>
+            <if test="url != null">url,</if>
             <if test="requestParams != null">request_params,</if>
             <if test="requestHeader != null">request_header,</if>
             <if test="responseHeader != null">response_header,</if>
@@ -118,7 +118,7 @@
 
     <delete id="deleteApiInterfaceInfoByIds" parameterType="String">
         delete from api_interface_info where id in
-        <foreach item="id" collection="array" open="(" separator="," close=")">
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
             #{id}
         </foreach>
         AND user_id = #{userId}

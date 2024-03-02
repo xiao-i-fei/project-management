@@ -44,6 +44,14 @@
         where id = #{id}
     </select>
 
+    <!--根据用户id和接口id查询接口用户关联关系-->
+    <select id="selectByUserIdAndInterfaceId"
+            resultType="com.xiaofei.management.api.domain.ApiUserInterfaceInfo">
+        <include refid="selectApiUserInterfaceInfoVo"/>
+        WHERE user_id = #{userId}
+        AND interface_info_id = #{interfaceId}
+    </select>
+
     <insert id="insertApiUserInterfaceInfo" parameterType="ApiUserInterfaceInfo" useGeneratedKeys="true"
             keyProperty="id">
         insert into api_user_interface_info
@@ -92,6 +100,14 @@
 
     <delete id="deleteApiUserInterfaceInfoByIds" parameterType="String">
         delete from api_user_interface_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--接口被删除时，删除接口与用户关联关系-->
+    <delete id="deleteByInterfaceId">
+        delete from api_user_interface_info where interface_info_id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

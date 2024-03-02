@@ -39,6 +39,17 @@ public class ApiCredentialsTableServiceImpl implements IApiCredentialsTableServi
     }
 
     /**
+     * 查询凭据信息
+     *
+     * @param accessKey 凭据信息accessKey
+     * @return 凭据信息，存储访问密钥和密钥信息
+     */
+    @Override
+    public ApiCredentialsTable selectApiCredentialsTableByAccessKey(String accessKey) {
+        return apiCredentialsTableMapper.selectApiCredentialsTableByAccessKey(accessKey);
+    }
+
+    /**
      * 查询凭据信息，存储访问密钥和密钥信息列表
      *
      * @param apiCredentialsTable 凭据信息，存储访问密钥和密钥信息
