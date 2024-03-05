@@ -107,3 +107,20 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+dubbo:
+  consumer:
+    timeout: 5000
+  application:
+    name: project-management-admin
+  registry:
+    address: nacos://192.168.191.194:8848
+    # 命名空间配置
+    parameters:
+      namespace: e3387225-0718-4b40-8259-8526a60311ba
+  protocol:
+    name: dubbo
+    # 注册到nacos中的端口
+    port: 8080
+    # 注册到nacos中的ip
+    host:  192.168.191.192

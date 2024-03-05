@@ -60,6 +60,12 @@
             <artifactId>project-management-api</artifactId>
         </dependency>
 
+        <!-- api开放平台公共模块-->
+        <dependency>
+            <groupId>com.xiaofei</groupId>
+            <artifactId>project-management-api-common</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>

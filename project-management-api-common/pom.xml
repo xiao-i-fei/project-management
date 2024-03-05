@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>project-management-api</artifactId>
+    <artifactId>project-management-api-common</artifactId>
 
     <description>
-        api管理平台
+        api管理平台-公共模块，dubbo公共
     </description>
 
     <dependencies>
@@ -19,12 +19,6 @@
         <dependency>
             <groupId>com.xiaofei</groupId>
             <artifactId>project-management-common</artifactId>
-        </dependency>
-
-        <!-- api开放平台公共模块-->
-        <dependency>
-            <groupId>com.xiaofei</groupId>
-            <artifactId>project-management-api-common</artifactId>
         </dependency>
 
     </dependencies>

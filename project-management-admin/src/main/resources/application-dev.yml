@@ -82,3 +82,20 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+
+dubbo:
+  consumer:
+    timeout: 5000
+  application:
+    name: project-management-admin
+  registry:
+    address: nacos://192.168.0.194:8848
+    # 命名空间配置
+    parameters:
+      namespace: 12387225-0718-4b40-1234-8526a6031456
+#  protocol:
+#    name: dubbo
+#    # 注册到nacos中的端口
+#    port: 8080
+#    # 注册到nacos中的ip
+#    host:  192.168.191.192

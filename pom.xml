@@ -179,6 +179,13 @@
                 <version>${project-management.version}</version>
             </dependency>
 
+            <!-- api开放平台公共模块-->
+            <dependency>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>project-management-api-common</artifactId>
+                <version>${project-management.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
@@ -191,6 +198,28 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+
+            <!-- dubbo相关依赖 ====== start -->
+            <!-- dubbo -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>3.2.11</version>
+            </dependency>
+
+            <!-- nacos注册中心 -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-registry-nacos</artifactId>
+                <version>3.2.11</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.spring</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>1.0.11</version>
+            </dependency>
+            <!-- dubbo相关依赖 ====== end -->
         </dependencies>
     </dependencyManagement>
 
@@ -202,6 +231,7 @@
         <module>project-management-generator</module>
         <module>project-management-common</module>
         <module>project-management-api</module>
+        <module>project-management-api-common</module>
     </modules>
     <packaging>pom</packaging>
 
