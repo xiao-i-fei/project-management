@@ -85,3 +85,15 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+# 接口地址服务地址
+gatewayUrl: ENC(uisc3y179XVYunMq8Ia7PTKzFFX6AywBYdCz1OhN5H2/ZPG1AiW6S07Ok85/w2yTiu8kB2Uj/LxKG24kNz0WK31TkTUxgHy6RgJ7EgKE2rQ=)
+dubbo:
+  provider:
+    timeout: 5000
+  application:
+    name: project-management
+  registry:
+    address: nacos://nacos:8848
+    # 命名空间配置
+    parameters:
+      namespace: e3387225-0718-4b40-8259-8526a60311ba

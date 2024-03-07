@@ -35,6 +35,12 @@
             <artifactId>project-management-common</artifactId>
         </dependency>
 
+        <!--接口管理平台-->
+        <dependency>
+            <groupId>com.xiaofei</groupId>
+            <artifactId>project-management-api</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

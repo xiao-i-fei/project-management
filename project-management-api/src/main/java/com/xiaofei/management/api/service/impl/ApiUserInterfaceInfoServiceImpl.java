@@ -33,7 +33,8 @@ public class ApiUserInterfaceInfoServiceImpl implements IApiUserInterfaceInfoSer
      */
     @Override
     public ApiUserInterfaceInfo selectApiUserInterfaceInfoById(Long id) {
-        return apiUserInterfaceInfoMapper.selectApiUserInterfaceInfoById(id);
+        Long userId = SecurityUtils.getUserId();
+        return apiUserInterfaceInfoMapper.selectApiUserInterfaceInfoById(id, userId);
     }
 
     /**
@@ -44,6 +45,7 @@ public class ApiUserInterfaceInfoServiceImpl implements IApiUserInterfaceInfoSer
      */
     @Override
     public List<ApiUserInterfaceInfo> selectApiUserInterfaceInfoList(ApiUserInterfaceInfo apiUserInterfaceInfo) {
+        apiUserInterfaceInfo.setUserId(SecurityUtils.getUserId());
         return apiUserInterfaceInfoMapper.selectApiUserInterfaceInfoList(apiUserInterfaceInfo);
     }
 
@@ -55,6 +57,7 @@ public class ApiUserInterfaceInfoServiceImpl implements IApiUserInterfaceInfoSer
      */
     @Override
     public int insertApiUserInterfaceInfo(ApiUserInterfaceInfo apiUserInterfaceInfo) {
+        apiUserInterfaceInfo.setUserId(SecurityUtils.getUserId());
         apiUserInterfaceInfo.setCreateTime(DateUtils.getNowDate());
         return apiUserInterfaceInfoMapper.insertApiUserInterfaceInfo(apiUserInterfaceInfo);
     }
@@ -67,6 +70,7 @@ public class ApiUserInterfaceInfoServiceImpl implements IApiUserInterfaceInfoSer
      */
     @Override
     public int updateApiUserInterfaceInfo(ApiUserInterfaceInfo apiUserInterfaceInfo) {
+        apiUserInterfaceInfo.setUserId(SecurityUtils.getUserId());
         apiUserInterfaceInfo.setUpdateTime(DateUtils.getNowDate());
         return apiUserInterfaceInfoMapper.updateApiUserInterfaceInfo(apiUserInterfaceInfo);
     }
@@ -79,7 +83,8 @@ public class ApiUserInterfaceInfoServiceImpl implements IApiUserInterfaceInfoSer
      */
     @Override
     public int deleteApiUserInterfaceInfoByIds(Long[] ids) {
-        return apiUserInterfaceInfoMapper.deleteApiUserInterfaceInfoByIds(ids);
+        Long userId = SecurityUtils.getUserId();
+        return apiUserInterfaceInfoMapper.deleteApiUserInterfaceInfoByIds(ids, userId);
     }
 
     /**
@@ -90,7 +95,8 @@ public class ApiUserInterfaceInfoServiceImpl implements IApiUserInterfaceInfoSer
      */
     @Override
     public int deleteApiUserInterfaceInfoById(Long id) {
-        return apiUserInterfaceInfoMapper.deleteApiUserInterfaceInfoById(id);
+        Long userId = SecurityUtils.getUserId();
+        return apiUserInterfaceInfoMapper.deleteApiUserInterfaceInfoById(id, userId);
     }
 
     /**
@@ -126,6 +132,7 @@ public class ApiUserInterfaceInfoServiceImpl implements IApiUserInterfaceInfoSer
      */
     @Override
     public int deleteByInterfaceId(Long[] interfaceIds) {
+        Long userId = SecurityUtils.getUserId();
         return apiUserInterfaceInfoMapper.deleteByInterfaceId(interfaceIds);
     }
 }

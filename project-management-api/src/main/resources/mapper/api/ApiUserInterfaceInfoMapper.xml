@@ -32,6 +32,7 @@
     <select id="selectApiUserInterfaceInfoList" parameterType="ApiUserInterfaceInfo"
             resultMap="ApiUserInterfaceInfoResult">
         <include refid="selectApiUserInterfaceInfoVo"/>
+        WHERE user_id = #{userId}
         <where>
             <if test="interfaceInfoId != null ">and interface_info_id = #{interfaceInfoId}</if>
             <if test="totalNum != null ">and total_num = #{totalNum}</if>
@@ -41,7 +42,8 @@
 
     <select id="selectApiUserInterfaceInfoById" parameterType="Long" resultMap="ApiUserInterfaceInfoResult">
         <include refid="selectApiUserInterfaceInfoVo"/>
-        where id = #{id}
+        WHERE user_id = #{userId}
+        AND id = #{id}
     </select>
 
     <!--根据用户id和接口id查询接口用户关联关系-->
@@ -89,18 +91,22 @@
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="isDelete != null">is_delete = #{isDelete},</if>
         </trim>
-        where id = #{id}
+        WHERE user_id = #{userId}
+        AND id = #{id}
     </update>
 
     <delete id="deleteApiUserInterfaceInfoById" parameterType="Long">
         delete
         from api_user_interface_info
-        where id = #{id}
+        WHERE user_id = #{userId}
+        AND id = #{id}
     </delete>
 
     <delete id="deleteApiUserInterfaceInfoByIds" parameterType="String">
-        delete from api_user_interface_info where id in
-        <foreach item="id" collection="array" open="(" separator="," close=")">
+        delete from api_user_interface_info
+        WHERE user_id = #{userId}
+        AND id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
@@ -108,7 +114,7 @@
     <!--接口被删除时，删除接口与用户关联关系-->
     <delete id="deleteByInterfaceId">
         delete from api_user_interface_info where interface_info_id in
-        <foreach item="id" collection="array" open="(" separator="," close=")">
+        <foreach item="id" collection="interfaceIds" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>

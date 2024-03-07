@@ -52,3 +52,16 @@ CREATE TABLE IF NOT EXISTS `api_user_interface_info`
     `update_time`       DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `is_delete`         TINYINT  DEFAULT 0                 NOT NULL COMMENT '是否删除(0-未删, 1-已删)'
 ) COMMENT '用户调用接口关系';
+
+CREATE TABLE IF NOT EXISTS `api_interface_request_info`
+(
+    `id`             BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `user_id`        BIGINT       NOT NULL COMMENT '调用用户 id',
+    `interface_path` VARCHAR(255) COMMENT '接口地址',
+    `method`         varchar(256) NOT NULL COMMENT '请求类型',
+    `describe`       VARCHAR(255) COMMENT '接口描述',
+    `status`         INT          NOT NULL DEFAULT '0' COMMENT '0-正常，1-禁用',
+    `create_time`    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `is_delete`      INT          NOT NULL DEFAULT '0' COMMENT '是否删除(0-未删, 1-已删)',
+    PRIMARY KEY (`id`)
+) COMMENT = '接口请求记录';

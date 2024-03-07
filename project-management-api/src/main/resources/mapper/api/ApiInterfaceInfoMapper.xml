@@ -39,8 +39,7 @@
 
     <select id="selectApiInterfaceInfoList" parameterType="ApiInterfaceInfo" resultMap="ApiInterfaceInfoResult">
         <include refid="selectApiInterfaceInfoVo"/>
-        WHERE user_id = #{userId}
-        <where>  
+        <where>
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
             <if test="description != null  and description != ''"> and description = #{description}</if>
             <if test="url != null  and url != ''"> and url = #{url}</if>
@@ -55,7 +54,6 @@
     <select id="selectApiInterfaceInfoById" parameterType="Long" resultMap="ApiInterfaceInfoResult">
         <include refid="selectApiInterfaceInfoVo"/>
         where id = #{id}
-        AND user_id = #{userId}
     </select>
 
     <insert id="insertApiInterfaceInfo" parameterType="ApiInterfaceInfo" useGeneratedKeys="true" keyProperty="id">
@@ -106,14 +104,12 @@
             <if test="isDelete != null">is_delete = #{isDelete},</if>
         </trim>
         where id = #{id}
-        AND user_id = #{userId}
     </update>
 
     <delete id="deleteApiInterfaceInfoById" parameterType="Long">
         delete
         from api_interface_info
         where id = #{id}
-          AND user_id = #{userId}
     </delete>
 
     <delete id="deleteApiInterfaceInfoByIds" parameterType="String">
@@ -121,6 +117,5 @@
         <foreach item="id" collection="ids" open="(" separator="," close=")">
             #{id}
         </foreach>
-        AND user_id = #{userId}
     </delete>
 </mapper>

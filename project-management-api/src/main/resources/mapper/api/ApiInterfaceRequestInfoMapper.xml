@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofei.management.api.mapper.ApiInterfaceRequestInfoMapper">
+
+    <resultMap type="ApiInterfaceRequestInfo" id="ApiInterfaceRequestInfoResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="interfacePath" column="interface_path"/>
+        <result property="method" column="method"/>
+        <result property="describe" column="describe"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <sql id="selectApiInterfaceRequestInfoVo">
+        select id,
+               user_id,
+               interface_path,
+               method,
+               `describe`,
+               `status`,
+               create_time,
+               is_delete
+        from api_interface_request_info
+    </sql>
+
+    <select id="selectApiInterfaceRequestInfoList" parameterType="ApiInterfaceRequestInfo"
+            resultMap="ApiInterfaceRequestInfoResult">
+        <include refid="selectApiInterfaceRequestInfoVo"/>
+        <where>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="interfacePath != null ">and interface_path = #{interfacePath}</if>
+            <if test="method != null  and method != ''">and method = #{method}</if>
+            <if test="describe != null ">and `describe` = #{describe}</if>
+            <if test="status != null ">and status = #{status}</if>
+            <if test="createTime != null ">and create_time = #{createTime}</if>
+            <if test="isDelete != null ">and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+
+    <select id="selectApiInterfaceRequestInfoById" parameterType="Long" resultMap="ApiInterfaceRequestInfoResult">
+        <include refid="selectApiInterfaceRequestInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <!--查询每个用户调用次数-->
+    <select id="userRequestCount" resultType="java.util.Map">
+        SELECT COALESCE((SELECT nick_name FROM `sys_user` WHERE user_id = i.user_id), i.`user_id`) userName,
+               COUNT(*)                                                                            requestCount
+        FROM api_interface_request_info i
+        GROUP BY userName
+        ORDER BY requestCount DESC;
+    </select>
+
+    <!--查询最近七天每天调用次数-->
+    <select id="countRequestByDate" resultType="java.util.Map">
+        SELECT DATE_FORMAT(create_time, '%Y-%m-%d') createTime,
+               COUNT(*)                             requestCount
+        FROM api_interface_request_info
+        WHERE create_time >= CURDATE() - INTERVAL 7 DAY
+        GROUP BY createTime
+        ORDER BY createTime DESC;
+    </select>
+
+    <!--统计每个接口请求次数-->
+    <select id="countInterfaceRequest" resultType="java.util.Map">
+        SELECT interface_path         interfacePath,
+               COALESCE((SELECT description FROM api_interface_info WHERE url = i.interface_path AND method = i.method),
+                        i.`describe`) `describe`,
+               COUNT(*)               requestCount
+        FROM api_interface_request_info i
+        GROUP BY interfacePath
+    </select>
+
+    <insert id="insertApiInterfaceRequestInfo" parameterType="ApiInterfaceRequestInfo" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into api_interface_request_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="interfacePath != null">interface_path,</if>
+            <if test="method != null">method,</if>
+            <if test="describe != null">`describe`,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="interfacePath != null">#{interfacePath},</if>
+            <if test="method != null">#{method},</if>
+            <if test="describe != null">#{describe},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+        </trim>
+    </insert>
+
+    <!--定时生成用户调用接口次数数据-->
+    <insert id="generateRequestInfo">
+        CALL generate_api_data(#{loopCount}, #{recentDays});
+    </insert>
+
+    <update id="updateApiInterfaceRequestInfo" parameterType="ApiInterfaceRequestInfo">
+        update api_interface_request_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="interfacePath != null">interface_path = #{interfacePath},</if>
+            <if test="method != null and method != ''">method = #{method},</if>
+            <if test="describe != null">`describe` = #{describe},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteApiInterfaceRequestInfoById" parameterType="Long">
+        delete
+        from api_interface_request_info
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteApiInterfaceRequestInfoByIds" parameterType="String">
+        delete from api_interface_request_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

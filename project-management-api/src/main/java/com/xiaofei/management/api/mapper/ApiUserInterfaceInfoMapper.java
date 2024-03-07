@@ -18,7 +18,7 @@ public interface ApiUserInterfaceInfoMapper {
      * @param id 用户调用接口关系主键
      * @return 用户调用接口关系
      */
-    public ApiUserInterfaceInfo selectApiUserInterfaceInfoById(Long id);
+    public ApiUserInterfaceInfo selectApiUserInterfaceInfoById(@Param("id") Long id, @Param("userId") Long userId);
 
     /**
      * 查询用户调用接口关系列表
@@ -50,7 +50,7 @@ public interface ApiUserInterfaceInfoMapper {
      * @param id 用户调用接口关系主键
      * @return 结果
      */
-    public int deleteApiUserInterfaceInfoById(Long id);
+    public int deleteApiUserInterfaceInfoById(@Param("id") Long id, @Param("userId") Long userId);
 
     /**
      * 批量删除用户调用接口关系
@@ -58,7 +58,7 @@ public interface ApiUserInterfaceInfoMapper {
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteApiUserInterfaceInfoByIds(Long[] ids);
+    public int deleteApiUserInterfaceInfoByIds(@Param("ids") Long[] ids, @Param("userId") Long userId);
 
     /**
      * 根据用户id和接口id查询接口用户关联关系
@@ -68,5 +68,5 @@ public interface ApiUserInterfaceInfoMapper {
     /**
      * 接口被删除时，删除接口与用户关联关系
      */
-    int deleteByInterfaceId(Long[] interfaceIds);
+    int deleteByInterfaceId(@Param("interfaceIds") Long[] interfaceIds);
 }

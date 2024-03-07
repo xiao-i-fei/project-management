@@ -1,6 +1,8 @@
 package com.xiaofei.management.framework.config;
 
-import java.util.concurrent.TimeUnit;
+import com.xiaofei.management.common.config.ProjectManagementConfig;
+import com.xiaofei.management.common.constant.Constants;
+import com.xiaofei.management.framework.interceptor.RepeatSubmitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +13,8 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import com.xiaofei.management.common.config.ProjectManagementConfig;
-import com.xiaofei.management.common.constant.Constants;
-import com.xiaofei.management.framework.interceptor.RepeatSubmitInterceptor;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 通用配置
