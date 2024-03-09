@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 /**
  * 定时生成最近指定天数调用接口次数数据
  * ClassName: ApiInterfaceRequestInfoTask
@@ -28,7 +30,7 @@ public class ApiInterfaceRequestInfoTask {
      */
     public void generateRequestInfo() {
         log.info(("定时生成最近指定天数调用接口次数数据======start"));
-        apiInterfaceRequestInfoService.generateRequestInfo(RandomUtil.randomInt(500,1000), 1);
+        apiInterfaceRequestInfoService.generateRequestInfo(RandomUtil.randomInt(200, 1000), LocalDate.now());
         log.info(("定时生成最近指定天数调用接口次数数据======end"));
     }
 }

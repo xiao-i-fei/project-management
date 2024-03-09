@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,8 +95,8 @@ public class ApiInterfaceRequestInfoServiceImpl implements IApiInterfaceRequestI
     /**
      * 定时生成最近指定天数调用接口次数数据
      */
-    public void generateRequestInfo(Integer loopCount, Integer recentDays) {
-        apiInterfaceRequestInfoMapper.generateRequestInfo(loopCount, recentDays);
+    public void generateRequestInfo(Integer loopCount, LocalDate localDate) {
+        apiInterfaceRequestInfoMapper.generateRequestInfo(loopCount, localDate);
     }
 
     /**

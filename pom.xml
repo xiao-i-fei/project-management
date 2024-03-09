@@ -232,6 +232,7 @@
         <module>project-management-common</module>
         <module>project-management-api</module>
         <module>project-management-api-common</module>
+        <module>project-management-generator-freemarker</module>
     </modules>
     <packaging>pom</packaging>
 

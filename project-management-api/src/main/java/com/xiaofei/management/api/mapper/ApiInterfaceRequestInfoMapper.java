@@ -3,6 +3,7 @@ package com.xiaofei.management.api.mapper;
 import com.xiaofei.management.api.domain.ApiInterfaceRequestInfo;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public interface ApiInterfaceRequestInfoMapper {
     /**
      * 定时生成最近指定天数调用接口次数数据
      */
-    void generateRequestInfo(@Param("loopCount") Integer loopCount, @Param("recentDays") Integer recentDays);
+    void generateRequestInfo(@Param("loopCount") Integer loopCount, @Param("localDate") LocalDate localDate);
 
     List<Map<String,String>> countRequestByDate();
 

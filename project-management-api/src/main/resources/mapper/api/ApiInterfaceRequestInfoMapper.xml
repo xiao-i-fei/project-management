@@ -57,12 +57,15 @@
 
     <!--查询最近七天每天调用次数-->
     <select id="countRequestByDate" resultType="java.util.Map">
-        SELECT DATE_FORMAT(create_time, '%Y-%m-%d') createTime,
-               COUNT(*)                             requestCount
-        FROM api_interface_request_info
-        WHERE create_time >= CURDATE() - INTERVAL 7 DAY
-        GROUP BY createTime
-        ORDER BY createTime DESC;
+        SELECT *
+        FROM (SELECT DATE_FORMAT(create_time, '%Y-%m-%d') createTime,
+                     COUNT(*)                             requestCount
+              FROM api_interface_request_info
+              WHERE create_time >= CURDATE() - INTERVAL 7 DAY
+              GROUP BY createTime
+              ORDER BY createTime DESC
+              LIMIT 7) a
+        ORDER BY createTime
     </select>
 
     <!--统计每个接口请求次数-->
@@ -73,6 +76,7 @@
                COUNT(*)               requestCount
         FROM api_interface_request_info i
         GROUP BY interfacePath
+        ORDER BY requestCount DESC
     </select>
 
     <insert id="insertApiInterfaceRequestInfo" parameterType="ApiInterfaceRequestInfo" useGeneratedKeys="true"
@@ -100,7 +104,7 @@
 
     <!--定时生成用户调用接口次数数据-->
     <insert id="generateRequestInfo">
-        CALL generate_api_data(#{loopCount}, #{recentDays});
+        CALL generate_api_data(#{loopCount}, #{localDate});
     </insert>
 
     <update id="updateApiInterfaceRequestInfo" parameterType="ApiInterfaceRequestInfo">

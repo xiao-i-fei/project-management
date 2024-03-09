@@ -2,6 +2,7 @@ package com.xiaofei.management.api.service;
 
 import com.xiaofei.management.api.domain.ApiInterfaceRequestInfo;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +64,7 @@ public interface IApiInterfaceRequestInfoService {
     /**
      * 定时生成最近指定天数调用接口次数数据
      */
-    void generateRequestInfo(Integer loopCount, Integer recentDays);
+    void generateRequestInfo(Integer loopCount, LocalDate localDate);
 
     /**
      * 统计查询
